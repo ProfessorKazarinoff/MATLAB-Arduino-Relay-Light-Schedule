@@ -17,6 +17,13 @@
  Example from http://www.arduino.cc/en/Tutorial/PhysicalPixel
  */
 
+ // Arduino IoT Project - Light Relay Group
+//  Authors: JuliAnna Scusa, Nicholas Sepe, Grace Semerjian, Quinn Gordon
+//  Course/Term: ENGR114 Summer 2017
+//  Date: 09/05/17
+//  Description: This Arduino code should cause a beefcake relay to switch on and off accordingly to a
+//  Matlab script that is communicating to it over serial. 
+
 const int ledPin = 13; // the pin that the beefcake relay LED needs to be read and is attached to
 int incomingByte;      // a variable to read/write incoming serial data into
 
