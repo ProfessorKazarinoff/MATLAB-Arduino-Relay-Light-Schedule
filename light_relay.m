@@ -82,8 +82,8 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
                
     if sunrise < datetime('now') & datetime('now') < sunset
         fprintf(arduino,'%s',on)
-        thingSpeakWrite(323649, 1, 'WriteKey', 'Z6DSIWHY64U6ACQO')
-        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        thingSpeakWrite(Insert Channel number here, 1, 'WriteKey', 'Insert Write API Key here')
+        data = thingSpeakRead(Insert Channel number here,'ReadKey','Insert Read API Key here')
         pause(15)
     end
               % If the current time is before sunrise and after sunset
@@ -92,8 +92,8 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
                
     if sunrise > datetime('now') & datetime('now') > sunset
         fprintf(arduino,'%s',off)
-        thingSpeakWrite(323649, 0, 'WriteKey', 'Z6DSIWHY64U6ACQO')
-        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        thingSpeakWrite(Insert Channel number here, 0, 'WriteKey', 'Insert Write API Key here')
+        data = thingSpeakRead(Insert Channel number here,'ReadKey','Insert Read API Key here')
         pause(15)
     end
     
@@ -101,7 +101,7 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
               % the data sent to ThingSpeak is equivalent to the data read
               % from ThingSpeak
 
-more_data = webread('https://thingspeak.com/channels/323649/field/1.json');
+more_data = webread('https://thingspeak.com/channels/ChannelNumber/field/1.json');
 last_data = more_data.feeds(end).field1
 last_string = num2str(last_data);
 last_numba = str2num(last_string);
