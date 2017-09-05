@@ -23,6 +23,9 @@
 //  Date: 09/05/17
 //  Description: This Arduino code should cause a beefcake relay to switch on and off accordingly to a
 //  Matlab script that is communicating to it over serial. 
+//  NOTE: This code was not originally created by the members in the Arduino IoT Project, the only modifications 
+//  to this code is additional commenting.
+
 
 const int ledPin = 13; // the pin that the beefcake relay LED needs to be read and is attached to
 int incomingByte;      // a variable to read/write incoming serial data into
