@@ -1,10 +1,13 @@
 %% Arduino IoT Project - Light Relay Group
-%  Authors(in order of appearance): JuliAnna Scusa, Nicholas Sepe, 
-%  Grace Semerjian, Quinn Gordon
+%  Authors: JuliAnna Scusa, Nicholas Sepe, Grace Semerjian, Quinn Gordon
 %  Date: 09/05/17
 %  Course/Term: ENGR114 Summer 2017
-%  Description: Something about having the relay automatically turning on &
-%  off and ThingSpeak
+%  Description: This script will grab the most current sunset and sunrise 
+%  times of Portland, OR, convert it to datetime arrays and let Matlab
+%  determine whether to turn the light relay on or off based on the current
+%  time. In addition, the state of the relay will be sent to ThingSpeak and
+%  produce a plot on a field. Matlab will then check if the data sent is
+%  equivalent to the data stored on ThingSpeak.
 
 %% Clear the command window, all workspace variables, and close any open plot windows.
 
@@ -19,7 +22,7 @@ format short g        % Makes the commandline output more easily readable.
 
 delete(instrfindall);         % Find all possible serial port objects 
                               % and delete their connections
-arduino = serial('COM4','BaudRate',9600) % <------ COM 4 MAY CHANGE!!! 
+arduino = serial('COM4','BaudRate',9600) % Note, COM4 may vary from to computer to computer
                               % Create a serial port object with port
                               % COM4 @ a BaudRate of 9600
 fopen(arduino)                % Open up a connection with serial port object 
@@ -41,8 +44,8 @@ data_api = webread('https://api.sunrise-sunset.org/json?lat=45.5230622&lng=-122.
                              % Bring the sunrise, sunset and daylength 
                              % data from the API address 
 
-sunrise_api = num2str(data_api.results.sunrise); % Convert the API address data into string
-str = sunrise_api;                              
+sunrise_api = num2str(data_api.results.sunrise); % Convert the API address 
+str = sunrise_api;                               % data into string
 str(20:25) = [];             % Get rid of the trailing +00:00's
 str(11) = ',';               % Make spacings with commas for 
 str(5) = ',';                % the creation of the datetime vector
@@ -65,6 +68,7 @@ b_str = str2num(strv);
 
 a = datetime(a_str);         % Now that the sunrise and sunset data is in
 b = datetime(b_str);         % numerical array, convert to datetime array
+
 datetime.setDefaultFormats('default','yyyy-MM-dd hh:mm:ss')
                              % If the datetime arrays weren't in the 
                              % American date format, correct it so it is
@@ -77,7 +81,7 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
               % ThingSpeak as a value of 1
                
     if sunrise < datetime('now') & datetime('now') < sunset
-        %fprintf(arduino,'%s',on)
+        fprintf(arduino,'%s',on)
         thingSpeakWrite(323649, 1, 'WriteKey', 'Z6DSIWHY64U6ACQO')
         data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
         pause(15)
@@ -87,14 +91,15 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
               % ThingSpeak as a value of 0
                
     if sunrise > datetime('now') & datetime('now') > sunset
-        %fprintf(arduino,'%s',off)
+        fprintf(arduino,'%s',off)
         thingSpeakWrite(323649, 0, 'WriteKey', 'Z6DSIWHY64U6ACQO')
         data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
         pause(15)
     end
     
- % Something about reading the state of the relay on ThingSpeak, webreading
- %  it, and having Matlab react to it as a requirement for the project?
+              % Read the state of the relay on ThingSpeak and compare if 
+              % the data sent to ThingSpeak is equivalent to the data read
+              % from ThingSpeak
 
 more_data = webread('https://thingspeak.com/channels/323649/field/1.json');
 last_data = more_data.feeds(end).field1
@@ -121,16 +126,8 @@ end
 
 %% Close the serial port.
 
-fclose(arduino);
-delete(arduino);
+fclose(arduino);               % Close the serial port object connection
+delete(arduino);               % with the arduino 
 clear arduino;
 disp('Serial Port is closed.')
-
-
-%% Telling ThingSpeak the Sunrise and Sunset?
-
-%sunrise_url = ['https://api.thingspeak.com/update?api_key=S2IXFHU5ALBEKFWJ&field1=', sunrise];
-%sunset_url = ['https://api.thingspeak.com/update?api_key=S2IXFHU5ALBEKFWJ&field1=', sunset];
-%upload_rise = webread(sunrise_url)
-%upload_set = webread(sunset_url)
 
