@@ -1,0 +1,346 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Arduino IoT Project - Light Relay Group</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-04"><meta name="DC.source" content="light_relay.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Arduino IoT Project - Light Relay Group</h1><!--introduction--><pre>Authors: JuliAnna Scusa, Nicholas Sepe, Grace Semerjian, Quinn Gordon
+Date: 09/05/17
+Course/Term: ENGR114 Summer 2017
+Description: This script will grab the most current sunset and sunrise
+times of Portland, OR, convert it to datetime arrays and let Matlab
+determine whether to turn the light relay on or off based on the current
+time. In addition, the state of the relay will be sent to ThingSpeak and
+produce a plot on a field. Matlab will then check if the data sent is
+equivalent to the data stored on ThingSpeak.</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear the command window, all workspace variables, and close any open plot windows.</a></li><li><a href="#2">Set up serial port and ensure it outputs data.</a></li><li><a href="#3">Automatic Scheduling and Talking to ThingSpeak</a></li><li><a href="#4">Close the serial port.</a></li></ul></div><h2 id="1">Clear the command window, all workspace variables, and close any open plot windows.</h2><pre class="codeinput">clc, clear, close <span class="string">all</span> <span class="comment">% Clear command line, workspace variables &amp; all open</span>
+                      <span class="comment">% plot windows.</span>
+
+format <span class="string">short</span> <span class="string">g</span>        <span class="comment">% Makes the commandline output more easily readable.</span>
+</pre><h2 id="2">Set up serial port and ensure it outputs data.</h2><pre class="language-matlab">Change <span class="string">the</span> <span class="string">Port</span> <span class="string">the</span> <span class="string">Arduino</span> <span class="string">is</span> <span class="string">connected</span> <span class="string">to.</span>
+</pre><pre class="codeinput">delete(instrfindall);         <span class="comment">% Find all possible serial port objects</span>
+                              <span class="comment">% and delete their connections</span>
+arduino = serial(<span class="string">'COM4'</span>,<span class="string">'BaudRate'</span>,9600) <span class="comment">% Note, COM4 may vary from to computer to computer</span>
+                              <span class="comment">% Create a serial port object with port</span>
+                              <span class="comment">% COM4 @ a BaudRate of 9600</span>
+fopen(arduino)                <span class="comment">% Open up a connection with serial port object</span>
+                              <span class="comment">% arduino to this device</span>
+pause(1)
+disp(<span class="string">'Serial Port is Open'</span>)
+</pre><pre class="codeoutput">
+   Serial Port Object : Serial-COM4
+
+   Communication Settings 
+      Port:               COM4
+      BaudRate:           9600
+      Terminator:         'LF'
+
+   Communication State 
+      Status:             closed
+      RecordStatus:       off
+
+   Read/Write State  
+      TransferStatus:     idle
+      BytesAvailable:     0
+      ValuesReceived:     0
+      ValuesSent:         0
+ 
+
+</pre><pre class="codeoutput error">Error using serial/fopen (line 72)
+Open failed: Port: COM4 is not available. No ports are available.
+Use INSTRFIND to determine if other instrument objects are connected to the requested device.
+
+Error in light_relay (line 28)
+fopen(arduino)                % Open up a connection with serial port object 
+</pre><h2 id="3">Automatic Scheduling and Talking to ThingSpeak</h2><pre class="codeinput">on = <span class="string">'H'</span>;     <span class="comment">% Let the inputs be H &amp; L for the Arduino to read over serial</span>
+off = <span class="string">'L'</span>;
+
+<span class="keyword">while</span> 1
+
+<span class="comment">% Take the API address data and convert into numerical arrays</span>
+
+data_api = webread(<span class="string">'https://api.sunrise-sunset.org/json?lat=45.5230622&amp;lng=-122.6764815&amp;formatted=0'</span>);
+                             <span class="comment">% Bring the sunrise, sunset and daylength</span>
+                             <span class="comment">% data from the API address</span>
+
+sunrise_api = num2str(data_api.results.sunrise); <span class="comment">% Convert the API address</span>
+str = sunrise_api;                               <span class="comment">% data into string</span>
+str(20:25) = [];             <span class="comment">% Get rid of the trailing +00:00's</span>
+str(11) = <span class="string">','</span>;               <span class="comment">% Make spacings with commas for</span>
+str(5) = <span class="string">','</span>;                <span class="comment">% the creation of the datetime vector</span>
+str(8) = <span class="string">','</span>;
+str(14) = <span class="string">','</span>;
+str(17) = <span class="string">','</span>;
+a_str = str2num(str);
+
+sunset_api = num2str(data_api.results.sunset);
+strv = sunset_api;
+strv(20:25) = [];
+strv(11) = <span class="string">','</span>;
+strv(5) = <span class="string">','</span>;
+strv(8) = <span class="string">','</span>;
+strv(14) = <span class="string">','</span>;
+strv(17) = <span class="string">','</span>;
+b_str = str2num(strv);
+
+<span class="comment">% Convert to datetime vectors</span>
+
+a = datetime(a_str);         <span class="comment">% Now that the sunrise and sunset data is in</span>
+b = datetime(b_str);         <span class="comment">% numerical array, convert to datetime array</span>
+
+datetime.setDefaultFormats(<span class="string">'default'</span>,<span class="string">'yyyy-MM-dd hh:mm:ss'</span>)
+                             <span class="comment">% If the datetime arrays weren't in the</span>
+                             <span class="comment">% American date format, correct it so it is</span>
+
+sunrise = a - hours(7)       <span class="comment">% Convert the sunrise and sunset times from</span>
+sunset = b - hours(7)        <span class="comment">% Greenwhich Mean Time to Pacific Time</span>
+
+              <span class="comment">% If the current time is after sunrise and before sunset</span>
+              <span class="comment">% turn on the relay and convey this information to</span>
+              <span class="comment">% ThingSpeak as a value of 1</span>
+
+    <span class="keyword">if</span> sunrise &lt; datetime(<span class="string">'now'</span>) &amp; datetime(<span class="string">'now'</span>) &lt; sunset
+        fprintf(arduino,<span class="string">'%s'</span>,on)
+        thingSpeakWrite(323649, 1, <span class="string">'WriteKey'</span>, <span class="string">'Z6DSIWHY64U6ACQO'</span>)
+        data = thingSpeakRead(323649,<span class="string">'ReadKey'</span>,<span class="string">'MCZPNZK0M0REJHWR'</span>)
+        pause(15)
+    <span class="keyword">end</span>
+              <span class="comment">% If the current time is before sunrise and after sunset</span>
+              <span class="comment">% turn off the relay and convey this information to</span>
+              <span class="comment">% ThingSpeak as a value of 0</span>
+
+    <span class="keyword">if</span> sunrise &gt; datetime(<span class="string">'now'</span>) &amp; datetime(<span class="string">'now'</span>) &gt; sunset
+        fprintf(arduino,<span class="string">'%s'</span>,off)
+        thingSpeakWrite(323649, 0, <span class="string">'WriteKey'</span>, <span class="string">'Z6DSIWHY64U6ACQO'</span>)
+        data = thingSpeakRead(323649,<span class="string">'ReadKey'</span>,<span class="string">'MCZPNZK0M0REJHWR'</span>)
+        pause(15)
+    <span class="keyword">end</span>
+
+              <span class="comment">% Read the state of the relay on ThingSpeak and compare if</span>
+              <span class="comment">% the data sent to ThingSpeak is equivalent to the data read</span>
+              <span class="comment">% from ThingSpeak</span>
+
+more_data = webread(<span class="string">'https://thingspeak.com/channels/323649/field/1.json'</span>);
+last_data = more_data.feeds(end).field1
+last_string = num2str(last_data);
+last_numba = str2num(last_string);
+compare = (last_numba == data)
+
+              <span class="comment">% Create a bar graph showing the daylength for today and time</span>
+              <span class="comment">% that the relay is off</span>
+
+       on_time = data_api.results.day_length;
+       on_time = on_time/3600;
+             y = [on_time,24-on_time];
+             x = [1,0];
+
+bar(x,y)
+grid
+title(<span class="string">'Time on &amp; Time off for today'</span>)
+ylabel(<span class="string">'Time on &amp; Time off (hrs)'</span>)
+xlabel(<span class="string">'On                          &amp;                             Off'</span>)
+
+<span class="keyword">end</span>
+</pre><h2 id="4">Close the serial port.</h2><pre class="codeinput">fclose(arduino);               <span class="comment">% Close the serial port object connection</span>
+delete(arduino);               <span class="comment">% with the arduino</span>
+clear <span class="string">arduino</span>;
+disp(<span class="string">'Serial Port is closed.'</span>)
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Arduino IoT Project - Light Relay Group
+%  Authors: JuliAnna Scusa, Nicholas Sepe, Grace Semerjian, Quinn Gordon
+%  Date: 09/05/17
+%  Course/Term: ENGR114 Summer 2017
+%  Description: This script will grab the most current sunset and sunrise 
+%  times of Portland, OR, convert it to datetime arrays and let Matlab
+%  determine whether to turn the light relay on or off based on the current
+%  time. In addition, the state of the relay will be sent to ThingSpeak and
+%  produce a plot on a field. Matlab will then check if the data sent is
+%  equivalent to the data stored on ThingSpeak.
+
+%% Clear the command window, all workspace variables, and close any open plot windows.
+
+clc, clear, close all % Clear command line, workspace variables & all open
+                      % plot windows. 
+
+format short g        % Makes the commandline output more easily readable.
+
+ 
+%%  Set up serial port and ensure it outputs data.
+%   Change the Port the Arduino is connected to.
+
+delete(instrfindall);         % Find all possible serial port objects 
+                              % and delete their connections
+arduino = serial('COM4','BaudRate',9600) % Note, COM4 may vary from to computer to computer
+                              % Create a serial port object with port
+                              % COM4 @ a BaudRate of 9600
+fopen(arduino)                % Open up a connection with serial port object 
+                              % arduino to this device
+pause(1)
+disp('Serial Port is Open')  
+
+
+%% Automatic Scheduling and Talking to ThingSpeak
+
+on = 'H';     % Let the inputs be H & L for the Arduino to read over serial
+off = 'L';
+    
+while 1
+    
+% Take the API address data and convert into numerical arrays
+    
+data_api = webread('https://api.sunrise-sunset.org/json?lat=45.5230622&lng=-122.6764815&formatted=0');
+                             % Bring the sunrise, sunset and daylength 
+                             % data from the API address 
+
+sunrise_api = num2str(data_api.results.sunrise); % Convert the API address 
+str = sunrise_api;                               % data into string
+str(20:25) = [];             % Get rid of the trailing +00:00's
+str(11) = ',';               % Make spacings with commas for 
+str(5) = ',';                % the creation of the datetime vector
+str(8) = ',';
+str(14) = ',';
+str(17) = ',';
+a_str = str2num(str);
+
+sunset_api = num2str(data_api.results.sunset);
+strv = sunset_api;
+strv(20:25) = [];
+strv(11) = ',';
+strv(5) = ',';
+strv(8) = ',';
+strv(14) = ',';
+strv(17) = ',';
+b_str = str2num(strv);
+
+% Convert to datetime vectors
+
+a = datetime(a_str);         % Now that the sunrise and sunset data is in
+b = datetime(b_str);         % numerical array, convert to datetime array
+
+datetime.setDefaultFormats('default','yyyy-MM-dd hh:mm:ss')
+                             % If the datetime arrays weren't in the 
+                             % American date format, correct it so it is
+
+sunrise = a - hours(7)       % Convert the sunrise and sunset times from
+sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
+
+              % If the current time is after sunrise and before sunset
+              % turn on the relay and convey this information to
+              % ThingSpeak as a value of 1
+               
+    if sunrise < datetime('now') & datetime('now') < sunset
+        fprintf(arduino,'%s',on)
+        thingSpeakWrite(323649, 1, 'WriteKey', 'Z6DSIWHY64U6ACQO')
+        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        pause(15)
+    end
+              % If the current time is before sunrise and after sunset
+              % turn off the relay and convey this information to
+              % ThingSpeak as a value of 0
+               
+    if sunrise > datetime('now') & datetime('now') > sunset
+        fprintf(arduino,'%s',off)
+        thingSpeakWrite(323649, 0, 'WriteKey', 'Z6DSIWHY64U6ACQO')
+        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        pause(15)
+    end
+    
+              % Read the state of the relay on ThingSpeak and compare if 
+              % the data sent to ThingSpeak is equivalent to the data read
+              % from ThingSpeak
+
+more_data = webread('https://thingspeak.com/channels/323649/field/1.json');
+last_data = more_data.feeds(end).field1
+last_string = num2str(last_data);
+last_numba = str2num(last_string);
+compare = (last_numba == data)
+
+              % Create a bar graph showing the daylength for today and time
+              % that the relay is off
+    
+       on_time = data_api.results.day_length;
+       on_time = on_time/3600;
+             y = [on_time,24-on_time];
+             x = [1,0];
+
+bar(x,y)
+grid
+title('Time on & Time off for today')
+ylabel('Time on & Time off (hrs)')
+xlabel('On                          &                             Off')
+
+end
+
+
+%% Close the serial port.
+
+fclose(arduino);               % Close the serial port object connection
+delete(arduino);               % with the arduino 
+clear arduino;
+disp('Serial Port is closed.')
+
+
+##### SOURCE END #####
+--></body></html>
