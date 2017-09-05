@@ -162,8 +162,8 @@ sunset = b - hours(7)        <span class="comment">% Greenwhich Mean Time to Pac
 
     <span class="keyword">if</span> sunrise &lt; datetime(<span class="string">'now'</span>) &amp; datetime(<span class="string">'now'</span>) &lt; sunset
         fprintf(arduino,<span class="string">'%s'</span>,on)
-        thingSpeakWrite(323649, 1, <span class="string">'WriteKey'</span>, <span class="string">'Z6DSIWHY64U6ACQO'</span>)
-        data = thingSpeakRead(323649,<span class="string">'ReadKey'</span>,<span class="string">'MCZPNZK0M0REJHWR'</span>)
+        thingSpeakWrite(Insert Channel number here, 1, <span class="string">'WriteKey'</span>, <span class="string">'Insert Write API Key here'</span>)
+        data = thingSpeakRead(Insert Channel number here,<span class="string">'ReadKey'</span>,<span class="string">'Insert Read API Key here'</span>)
         pause(15)
     <span class="keyword">end</span>
               <span class="comment">% If the current time is before sunrise and after sunset</span>
@@ -172,8 +172,8 @@ sunset = b - hours(7)        <span class="comment">% Greenwhich Mean Time to Pac
 
     <span class="keyword">if</span> sunrise &gt; datetime(<span class="string">'now'</span>) &amp; datetime(<span class="string">'now'</span>) &gt; sunset
         fprintf(arduino,<span class="string">'%s'</span>,off)
-        thingSpeakWrite(323649, 0, <span class="string">'WriteKey'</span>, <span class="string">'Z6DSIWHY64U6ACQO'</span>)
-        data = thingSpeakRead(323649,<span class="string">'ReadKey'</span>,<span class="string">'MCZPNZK0M0REJHWR'</span>)
+        thingSpeakWrite(Insert Channel number here, 0, <span class="string">'WriteKey'</span>, <span class="string">'Insert Write API Key here'</span>)
+        data = thingSpeakRead(Insert Channel number here,<span class="string">'ReadKey'</span>,<span class="string">'Insert Read API Key here'</span>)
         pause(15)
     <span class="keyword">end</span>
 
@@ -181,7 +181,7 @@ sunset = b - hours(7)        <span class="comment">% Greenwhich Mean Time to Pac
               <span class="comment">% the data sent to ThingSpeak is equivalent to the data read</span>
               <span class="comment">% from ThingSpeak</span>
 
-more_data = webread(<span class="string">'https://thingspeak.com/channels/323649/field/1.json'</span>);
+more_data = webread(<span class="string">'https://thingspeak.com/channels/ChannelNumber/field/1.json'</span>);
 last_data = more_data.feeds(end).field1
 last_string = num2str(last_data);
 last_numba = str2num(last_string);
@@ -292,8 +292,8 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
                
     if sunrise < datetime('now') & datetime('now') < sunset
         fprintf(arduino,'%s',on)
-        thingSpeakWrite(323649, 1, 'WriteKey', 'Z6DSIWHY64U6ACQO')
-        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        thingSpeakWrite(Insert Channel number here, 1, 'WriteKey', 'Insert Write API Key here')
+        data = thingSpeakRead(Insert Channel number here,'ReadKey','Insert Read API KEy here')
         pause(15)
     end
               % If the current time is before sunrise and after sunset
@@ -302,8 +302,8 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
                
     if sunrise > datetime('now') & datetime('now') > sunset
         fprintf(arduino,'%s',off)
-        thingSpeakWrite(323649, 0, 'WriteKey', 'Z6DSIWHY64U6ACQO')
-        data = thingSpeakRead(323649,'ReadKey','MCZPNZK0M0REJHWR')
+        thingSpeakWrite(Insert Channel number here, 0, 'WriteKey', 'Insert Write API Key here')
+        data = thingSpeakRead(Insert Channel number here,'ReadKey','Insert Read API Key here')
         pause(15)
     end
     
@@ -311,7 +311,7 @@ sunset = b - hours(7)        % Greenwhich Mean Time to Pacific Time
               % the data sent to ThingSpeak is equivalent to the data read
               % from ThingSpeak
 
-more_data = webread('https://thingspeak.com/channels/323649/field/1.json');
+more_data = webread('https://thingspeak.com/channels/ChannelNumber/field/1.json');
 last_data = more_data.feeds(end).field1
 last_string = num2str(last_data);
 last_numba = str2num(last_string);
