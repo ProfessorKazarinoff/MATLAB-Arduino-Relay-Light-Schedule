@@ -25,8 +25,14 @@ delete(instrfindall);         % Find all possible serial port objects
 arduino = serial('COM4','BaudRate',9600) % Note, COM4 may vary from to computer to computer
                               % Create a serial port object with port
                               % COM4 @ a BaudRate of 9600
-fopen(arduino)                % Open up a connection with serial port object 
-                              % arduino to this device
+try
+    fopen(arduino);           % Open up a connection with serial port object 'arduino'
+catch err                     % If the connection can not be openned....
+    msg = sprintf('Make sure you select the correct COM Port where the Arduino is connected. \n Try typing the following commands into the command line: \n \n fclose(arduino); \n delete(arduino);  \n clear arduino;');  % set the error message with sprintf()
+    error(msg); % print error message
+end
+               
+                    
 pause(1)
 disp('Serial Port is Open')  
 
