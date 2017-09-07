@@ -1,5 +1,5 @@
 %% Arduino IoT Project - Light Relay Group
-%  Authors: JuliAnna Scusa, Nicholas Sepe, Grace Semerjian, Quinn Gordon
+%  Authors: ENGR114 Student Group at Portland Community College, Summer 2017
 %  Date: 09/05/17
 %  Course/Term: ENGR114 Summer 2017
 %  Description: This script will grab the most current sunset and sunrise 
