@@ -18,4 +18,12 @@ From the description in the arduino code:
 " This Arduino code should make a beefcake relay switch on and off accordingly to a
   Matlab script that is communicating to it over serial. "
   
+##Future Work:
+What could another group of students do to build on this project? Any resources this group could use to build this future work?
+
+
+##License
+Can be MIT licenses or BSD license. Include if you want to others to acknowledge where the work came from.
+
+  
   Thanks to the previous PCC students for writing much of the previous Arduino code.
