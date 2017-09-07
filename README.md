@@ -23,7 +23,7 @@ What could another group of students do to build on this project? Any resources 
 
 
 ## License
-Can be MIT licenses or BSD license. Include if you want to others to acknowledge where the work came from.
+ GNU GENERAL PUBLIC LICENSE Version 3
 
   
   Thanks to the previous PCC students for writing much of the previous Arduino code.
