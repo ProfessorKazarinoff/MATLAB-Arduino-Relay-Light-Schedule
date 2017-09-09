@@ -5,12 +5,13 @@ We use MATLAB code to read daily sunrise and sunset times from the website https
 
 Once we retrieve this data we convert into a character array, then a numerical array, eventually to be converted into the daytime array for MATLAB so we can speak to Thingspeak.com
 
-## Problem Statement:
+## Problem Statement
 Our group was tasked with improving on what the team last year created. By connecting our MATLAB script with Thinkspeak and allow for an automatic on and off of the light relay coherent with the daily sunrise and sunset schedule.
 
-## Hardware Setup:
+## Hardware Setup
 The hardware for the project was assembled as follows. Safety must be taken into consideration as the relay switches on and off electricty from the wall. Use proper precautions and double check all connections before plugging relay box into wall.
-### Bill of Materials:
+
+### Bill of Materials
 
 ### Hardware Schematic
 ![fritzing_diagram](/doc/fritzing_diagram.png)
@@ -29,7 +30,7 @@ From the description in the arduino code:
 " This Arduino code should make a beefcake relay switch on and off accordingly to a
   Matlab script that is communicating to it over serial. "
   
-## Future Work:
+## Future Work
 What could another group of students do to build on this project? Any resources this group could use to build this future work?
 
 
@@ -37,4 +38,4 @@ What could another group of students do to build on this project? Any resources 
  GNU GENERAL PUBLIC LICENSE Version 3
 
   
-  Thanks to the previous PCC students for writing much of the previous Arduino code.
+ **Thanks to the previous PCC students for writing much of the previous Arduino code.**
