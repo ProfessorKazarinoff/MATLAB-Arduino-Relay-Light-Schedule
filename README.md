@@ -27,17 +27,22 @@ The hardware for the project was assembled as follows. Safety must be taken into
 #### First step: Lay out all the components on the relay board following the instruction on previous page (drawn in fritzing)
 ![image1](/doc/image1.png)
 
-#### Second step: connect the wires to the controller 
+#### Second step:
+connect the wires to the controller 
+![image2](/doc/image2.png)
 
+#### Third step:
+Prepare the box by drilling two holes on either end for the power cord. Also cut out two access holes for the USB and adapter cables.
+![image3](/doc/image3.png)
 
+#### Fourth step:
+Temporarily install stand-offs on the red board and relay board; use some zip ties to keep things secure in place. Then position inside box with outlets towards previously made cut-outs. 
+![image4](/doc/image4.png)
 
-#### Third step: Prepare the box by drilling two holes on either end for the power cord. Also cut out two access holes for the USB and adapter cables.
-
-
-#### Fourth step: Temporarily install stand-offs on the red board and relay board; use some zip ties to keep things secure in place. Then position inside box with outlets towards previously made cut-outs. 
-
-#### Fifth step: Feed the power cables inside the box. Connect the two white (neutral) wires together and the two green (ground) wires together with wire nuts. Then feed the two black (hot) wires into the blue terminal block (high voltage side) of the relay into the two right-hand most slots (order depends on the code order, but CO - common and NO - normally open are the best options).
-
+#### Fifth step:
+Feed the power cables inside the box. Connect the two white (neutral) wires together and the two green (ground) wires together with wire nuts. Then feed the two black (hot) wires into the blue terminal block (high voltage side) of the relay into the two right-hand most slots (order depends on the code order, but CO - common and NO - normally open are the best options).
+![image5](/doc/image5.png)
+![image6](/doc/image6.png)
 
 
 
