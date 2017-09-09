@@ -69,7 +69,7 @@ From the description in the ![Arduino code](light_relay.ino):
 ![results_plot](/doc/plot.png)
 
 ## Future Work
-What could another group of students do to build on this project? Any resources this group could use to build this future work?
+Another group could build on this project by incorporating a user override as part of the MATLAB script so that the user could turn the lights on and off instead of the lights turned on and off by a schedule. Another option would be to build a GUI (Graphical User Interface) in MATLAB to control the relay with button clicks.
 
 
 ## License
