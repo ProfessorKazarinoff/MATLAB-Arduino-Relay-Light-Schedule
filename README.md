@@ -12,8 +12,10 @@ Our group was tasked with improving on what the team last year created. By conne
 The hardware for the project was assembled as follows. Safety must be taken into consideration as the relay switches on and off electricty from the wall. Use proper precautions and double check all connections before plugging relay box into wall.
 
 ### Bill of Materials
-| Component | Vendor| Item Description | Item Number | Web Link |
+| Component | Vendor | Item Description | Item Number | Web Link |
+| --------- | ------ | -----------------| ----------- | ---------|
 | Redboard | SparkFun | Microcontroller |DEV-13975 | https://www.sparkfun.com/products/13975 |
+
 Jumper wires x3
 SparkFun
 Wires
