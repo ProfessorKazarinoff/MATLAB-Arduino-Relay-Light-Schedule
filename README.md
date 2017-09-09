@@ -24,7 +24,8 @@ The hardware for the project was assembled as follows. Safety must be taken into
 ![fritzing_diagram](/doc/fritzing_diagram.png)
 
 ### Hookup Guide
-#### First step: Lay out all the components on the relay board following the instruction on previous page (drawn in fritzing)
+#### First step:
+Lay out all the components on the relay board following the instruction on previous page (drawn in fritzing)
 ![image1](/doc/image1.png)
 
 #### Second step:
@@ -45,9 +46,6 @@ Feed the power cables inside the box. Connect the two white (neutral) wires toge
 ![image6](/doc/image6.png)
 
 
-
-
-
 ## MATLAB Code
 From the description in the MATLAB code:  
 "This script will grab the most current sunset and sunrise 
@@ -57,11 +55,15 @@ From the description in the MATLAB code:
  produce a plot on a field. Matlab will then check if the data sent is
  equivalent to the data stored on ThingSpeak."
 
+
 ## Arduino Code
 From the description in the arduino code:
 " This Arduino code should make a beefcake relay switch on and off accordingly to a
   Matlab script that is communicating to it over serial. "
   
+## Results
+![results_plot](/doc/plot.png)
+
 ## Future Work
 What could another group of students do to build on this project? Any resources this group could use to build this future work?
 
