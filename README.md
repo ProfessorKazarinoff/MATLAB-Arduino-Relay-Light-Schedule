@@ -47,19 +47,23 @@ Feed the power cables inside the box. Connect the two white (neutral) wires toge
 
 
 ## MATLAB Code
-From the description in the MATLAB code:  
+From the description in the ![MATLAB code](light_relay.m):
+```
 "This script will grab the most current sunset and sunrise 
   times of Portland, OR, convert it to datetime arrays and let Matlab
  determine whether to turn the light relay on or off based on the current
  time. In addition, the state of the relay will be sent to ThingSpeak and
  produce a plot on a field. Matlab will then check if the data sent is
  equivalent to the data stored on ThingSpeak."
+ ```
 
 
 ## Arduino Code
-From the description in the arduino code:
+From the description in the ![Arduino code](light_relay.ino):
+```
 " This Arduino code should make a beefcake relay switch on and off accordingly to a
   Matlab script that is communicating to it over serial. "
+ ```
   
 ## Results
 ![results_plot](/doc/plot.png)
