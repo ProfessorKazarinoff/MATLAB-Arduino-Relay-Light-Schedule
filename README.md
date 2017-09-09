@@ -12,6 +12,31 @@ Our group was tasked with improving on what the team last year created. By conne
 The hardware for the project was assembled as follows. Safety must be taken into consideration as the relay switches on and off electricty from the wall. Use proper precautions and double check all connections before plugging relay box into wall.
 
 ### Bill of Materials
+| Component | Vendor| Item Description | Item Number | Web Link |
+| Redboard | SparkFun | Microcontroller |DEV-13975 | https://www.sparkfun.com/products/13975 |
+Jumper wires x3
+SparkFun
+Wires
+PRT-10897
+https://www.sparkfun.com/products/10897
+USB cable
+SparkFun
+Connecting device
+CAB-11301
+https://www.sparkfun.com/products/11301
+Beefcake Relay
+SparkFun
+Relay
+KIT-13815
+https://www.sparkfun.com/products/13815
+ USB Mini-B Cable
+SparkFun 
+USB Mini-B Cable - 6 Foot
+CAB-11301
+
+https://www.sparkfun.com/products/11301
+
+
 
 ### Hardware Schematic
 ![fritzing_diagram](/doc/fritzing_diagram.png)
